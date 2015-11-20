@@ -33,7 +33,7 @@ namespace SimpleCalculator
                 Char secondItem = Char.Parse(parse.GetSecond(input));
                 int firstItem = int.Parse(parse.GetFirst(input));
                 constant_value = constant.GetConstant(secondItem);
-                number_value = secondItem;
+                number_value = firstItem;
             }
             else
             {

@@ -33,6 +33,16 @@ namespace SimpleCalculatorTests
         }
 
         [TestMethod]
+        public void EvaluateInputWorksForConstantAdditionBackwards()
+        {
+            string input = "7+a";
+            Constant constant = new Constant();
+            constant.AddConstant('a', 5);
+            Evaluate newSession = new Evaluate();
+            Assert.AreEqual(12, newSession.EvaluateInput(input, constant));
+        }
+
+        [TestMethod]
         public void EvaluateInputWorksForSubtract()
         {
             string input = "1-5";
