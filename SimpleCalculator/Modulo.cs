@@ -21,26 +21,32 @@ namespace SimpleCalculator
             Parser parse = new Parser();
             int constant_value;
             int number_value;
-            if (Char.IsLetter(Char.Parse(parse.GetFirst(input))) && !Char.IsLetter(Char.Parse(parse.GetSecond(input))))
+            Char result1;
+            Char result2;
+            int result3;
+            int result4;
+            bool test1 = Char.TryParse(parse.GetFirst(input), out result1);
+            bool test2 = Char.TryParse(parse.GetSecond(input), out result2);
+            bool test3 = int.TryParse(parse.GetFirst(input), out result3);
+            bool test4 = int.TryParse(parse.GetSecond(input), out result4);
+            if (test1 && !test3 && test4)
             {
-                Char firstItem = Char.Parse(parse.GetFirst(input));
-                int secondItem = int.Parse(parse.GetSecond(input));
-                constant_value = constant.GetConstant(firstItem);
-                number_value = secondItem;
+                constant_value = constant.GetConstant(result1);
+                number_value = result4;
             }
-            else if (Char.IsLetter(Char.Parse(parse.GetSecond(input))) && !Char.IsLetter(Char.Parse(parse.GetFirst(input))))
+            else if (test2 && !test4 && test3)
             {
-                Char secondItem = Char.Parse(parse.GetSecond(input));
-                int firstItem = int.Parse(parse.GetFirst(input));
-                constant_value = constant.GetConstant(secondItem);
-                number_value = secondItem;
+                constant_value = constant.GetConstant(result2);
+                number_value = result3;
+            }
+            else if (test1 && test2 && !test3 && !test4)
+            {
+                constant_value = constant.GetConstant(result1);
+                number_value = constant.GetConstant(result2);
             }
             else
             {
-                Char secondItem = Char.Parse(parse.GetSecond(input));
-                Char firstItem = Char.Parse(parse.GetFirst(input));
-                constant_value = constant.GetConstant(secondItem);
-                number_value = constant.GetConstant(firstItem);
+                throw new FormatException();
             }
             return constant_value % number_value;
         }
